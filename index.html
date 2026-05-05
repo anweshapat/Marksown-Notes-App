@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown Notes App</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Marked.js library for markdown parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <h1 class="app-title">📝 Markdown Notes</h1>
+            </div>
+            <div class="header-center">
+                <div class="search-container">
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        class="search-input" 
+                        placeholder="Search notes..."
+                        aria-label="Search notes"
+                    >
+                    <span class="search-icon">🔍</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <button id="newNoteBtn" class="btn btn-primary" title="Create a new note">
+                    ➕ New
+                </button>
+                <button id="darkModeToggle" class="btn btn-secondary" title="Toggle dark mode">
+                    🌙 Dark
+                </button>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <!-- Sidebar: Notes List -->
+            <aside class="sidebar">
+                <div class="sidebar-header">
+                    <h2>My Notes</h2>
+                </div>
+                <div class="notes-list" id="notesList">
+                    <p class="empty-state">No notes yet. Create one to get started!</p>
+                </div>
+            </aside>
+
+            <!-- Editor Section: Split Layout -->
+            <main class="editor-container">
+                <!-- Left: Markdown Editor -->
+                <div class="editor-pane">
+                    <div class="pane-header">
+                        <h3>Editor</h3>
+                        <div class="editor-actions">
+                            <button id="deleteNoteBtn" class="btn btn-danger btn-sm" title="Delete current note" style="display: none;">
+                                🗑️ Delete
+                            </button>
+                            <button id="exportNoteBtn" class="btn btn-secondary btn-sm" title="Export as .txt" style="display: none;">
+                                💾 Export
+                            </button>
+                        </div>
+                    </div>
+                    <textarea 
+                        id="markdown-input" 
+                        class="markdown-input" 
+                        placeholder="Enter your markdown here...
+                        
+# Heading 1
+## Heading 2
+
+**Bold text**
+*Italic text*
+`Code`
+
+- List item 1
+- List item 2
+
+> Blockquote
+
+[Link](https://example.com)"
+                        aria-label="Markdown input"
+                    ></textarea>
+                    <div class="timestamp" id="timestamp"></div>
+                </div>
+
+                <!-- Right: Live Preview -->
+                <div class="preview-pane">
+                    <div class="pane-header">
+                        <h3>Preview</h3>
+                    </div>
+                    <div 
+                        id="preview-output" 
+                        class="preview-output markdown-content"
+                        aria-label="Markdown preview"
+                    >
+                        <p class="placeholder-text">Start typing to see the preview...</p>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Modal: New Note Dialog -->
+    <div id="newNoteModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create New Note</h2>
+                <button class="modal-close" id="closeModalBtn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <label for="noteTitleInput">Note Title:</label>
+                <input 
+                    type="text" 
+                    id="noteTitleInput" 
+                    class="input-field" 
+                    placeholder="Enter note title..."
+                    aria-label="Note title"
+                >
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelModalBtn">Cancel</button>
+                <button class="btn btn-primary" id="confirmModalBtn">Create</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal: Delete Note -->
+    <div id="deleteConfirmModal" class="modal">
+        <div class="modal-content modal-small">
+            <div class="modal-header">
+                <h2>Delete Note?</h2>
+                <button class="modal-close" id="closeDeleteModalBtn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this note? This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelDeleteBtn">Cancel</button>
+                <button class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
